@@ -1,9 +1,16 @@
 import React from "react";
+import Header from "./components/Header";
+import HeroSection from "./components/HeroSection";
+import FeatureSection from "./components/FeatureSection";
+import Footer from "./components/Footer";
 
 const App: React.FC = () => {
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <h1 className="text-4xl font-bold text-blue-600">Frontend with Tailwind is running!</h1>
+    <div>
+      <Header />
+      <HeroSection />
+      <FeatureSection />
+      <Footer />
     </div>
   );
 };
