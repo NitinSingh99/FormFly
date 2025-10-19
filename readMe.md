@@ -104,47 +104,20 @@ Visit `http://localhost:3000` to see FormFly in action! 🎉
 3. **Smart Mapping** - Data is intelligently mapped to form fields
 4. **Review & Submit** - Verify the auto-filled form and submit
 
----
 
 ## 🎨 Screenshots
 
 *Coming soon...*
 
----
-
-## 🗺️ Roadmap
-
-- [ ] Multi-language support
-- [ ] Bulk form processing
-- [ ] Custom form templates
-- [ ] Integration with popular form platforms
-- [ ] Mobile app (iOS & Android)
-- [ ] Browser extension
-- [ ] API for third-party integrations
-
----
 
 ## 🤝 Contributing
 
 We welcome contributions! Here's how you can help:
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
 
 ## 👥 Team
 
-Built with ❤️ by [Your Name/Team Name]
+Built with ❤️ by Nitin
 
 ---
 
@@ -152,17 +125,8 @@ Built with ❤️ by [Your Name/Team Name]
 
 Have questions or suggestions? Reach out to us!
 
-- **Email**: contact@formfly.io
-- **Twitter**: [@FormFlyAI](https://twitter.com/formflyai)
-- **Website**: [www.formfly.io](https://formfly.io)
-
----
-
-## 🙏 Acknowledgments
-
-- Thanks to all contributors who have helped shape FormFly
-- Inspired by the need to simplify bureaucratic processes
-- Built with modern web technologies and AI innovation
+- **Email**: devwithnitin@gmail.com
+- **Website**: *Coming soon...*
 
 ---
 

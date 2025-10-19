@@ -8,7 +8,7 @@ export default function Footer() {
                         <a className="text-sm text-gray-600 dark:text-gray-400 hover:text-primary" href="#">Terms of Service</a>
                         <a className="text-sm text-gray-600 dark:text-gray-400 hover:text-primary" href="#">Contact Us</a>
                     </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">© 2024 FormFly. All rights reserved.</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">© 2025 FormFly. All rights reserved.</p>
                 </div>
             </div>
         </footer>

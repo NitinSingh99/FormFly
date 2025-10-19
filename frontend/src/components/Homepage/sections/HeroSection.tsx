@@ -1,5 +1,8 @@
-import heroBg from '../assets/hero.png';
+import heroBg from '../../../assets/hero.png';
+import { useNavigate } from 'react-router-dom';
+
 export default function HeroSection() {
+    const navigate = useNavigate();
     return (
         <section className="px-4 md:px-10 lg:px-20 py-16 md:py-24">
             <div className="mx-auto max-w-5xl">
@@ -13,7 +16,7 @@ export default function HeroSection() {
                             FormFly securely extracts data from your PDFs and automatically fills out online forms, saving you time and reducing errors.
                         </p>
                     </div>
-                    <button className="flex items-center justify-center rounded-lg h-12 px-6 bg-primary text-white text-base font-bold shadow-lg hover:bg-primary/90 transition-colors">
+                    <button onClick={() => { navigate("/form") }} className="flex items-center justify-center rounded-lg h-12 px-6 bg-primary text-white text-base font-bold shadow-lg hover:bg-primary/90 transition-colors">
                         <span className="truncate">Get Started for Free</span>
                     </button>
                 </div>

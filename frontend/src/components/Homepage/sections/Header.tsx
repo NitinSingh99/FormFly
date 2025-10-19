@@ -1,13 +1,16 @@
+import { useNavigate } from "react-router-dom";
+
 declare global {
-  interface Window {
-    toggleTheme: () => void;
-  }
+    interface Window {
+        toggleTheme: () => void;
+    }
 }
 
 export default function Header() {
+    const navigate = useNavigate();
     return (
         <header className="flex items-center justify-between whitespace-nowrap border-b border-gray-200 dark:border-gray-800 px-10 py-4">
-            <div className="flex items-center gap-3 text-gray-900 dark:text-white">
+            <div className="flex items-center gap-3 text-gray-900 dark:text-white hover:cursor-pointer" onClick={() => navigate("/")}>
                 <div className="w-8 h-8 text-primary">
                     <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
                         <g clipPath="url(#clip0_6_535)">
@@ -25,7 +28,7 @@ export default function Header() {
                         </defs>
                     </svg>
                 </div>
-                <h2 className="text-xl font-bold">FormFly</h2>
+                <h2 className="text-xl font-bold" >FormFly</h2>
             </div>
 
             <div className="flex items-center gap-6">
@@ -35,7 +38,9 @@ export default function Header() {
                     <a className="text-sm font-medium hover:text-primary" href="#">Resources</a>
                 </nav>
 
-                <button className="flex items-center justify-center rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold shadow-sm hover:bg-primary/90 transition-colors">
+                <button className="flex items-center justify-center rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold shadow-sm hover:bg-primary/90 transition-colors"
+                    onClick={() => navigate("/form")}
+                >
                     <span className="truncate">Get Started</span>
                 </button>
 

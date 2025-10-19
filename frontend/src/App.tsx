@@ -1,18 +1,22 @@
 import React from "react";
-import Header from "./components/Header";
-import HeroSection from "./components/HeroSection";
-import FeatureSection from "./components/FeatureSection";
-import Footer from "./components/Footer";
+import Header from "./components/Homepage/sections/Header";
+import HeroSection from "./components/Homepage/sections/HeroSection";
+import FeatureSection from "./components/Homepage/sections/FeatureSection";
+import Footer from "./components/Homepage/sections/Footer";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Homepage from "./pages/Homepage";
+import FormPage from "./pages/Formpage";
 
-const App: React.FC = () => {
-  return (
-    <div>
-      <Header />
-      <HeroSection />
-      <FeatureSection />
-      <Footer />
-    </div>
-  );
-};
+const App: React.FC = () => 
+(
+  <BrowserRouter>
+    <Header />
+    <Routes>
+      <Route path="/" element={<Homepage />} />
+      <Route path="/form" element={<FormPage />} />
+    </Routes>
+    <Footer />
+  </BrowserRouter>
+)
 
 export default App;
