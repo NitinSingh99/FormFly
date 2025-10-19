@@ -1,22 +1,32 @@
 import React from "react";
 import Header from "./components/Homepage/sections/Header";
-import HeroSection from "./components/Homepage/sections/HeroSection";
-import FeatureSection from "./components/Homepage/sections/FeatureSection";
 import Footer from "./components/Homepage/sections/Footer";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import FormPage from "./pages/Formpage";
+import { AnimatePresence } from "framer-motion";
 
-const App: React.FC = () => 
-(
-  <BrowserRouter>
-    <Header />
-    <Routes>
-      <Route path="/" element={<Homepage />} />
-      <Route path="/form" element={<FormPage />} />
-    </Routes>
-    <Footer />
-  </BrowserRouter>
-)
+function AnimatedRoutes() {
+  const location = useLocation();
 
-export default App;
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/form" element={<FormPage />} />
+      </Routes>
+    </AnimatePresence>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Header />
+      <AnimatedRoutes />
+      <Footer />
+    </BrowserRouter>
+  );
+}
+
+
