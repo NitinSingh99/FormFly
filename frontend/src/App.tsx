@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "./components/Homepage/sections/Header";
-import Footer from "./components/Homepage/sections/Footer";
+import Header from "./components/shared/sections/Header";
+import Footer from "./components/shared/sections/Footer";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import FormPage from "./pages/Formpage";
