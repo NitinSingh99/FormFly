@@ -1,11 +1,12 @@
 import { useFileUpload } from "../../../hooks/index";
+import ButtonPrimary from "../../shared/elements/ButtonPrimary";
 
 export default function UploadBox() {
 
     const {file, inputRef, handleFileChange, handleDragOver, handleDrop} = useFileUpload();
 
     return (
-        <section className="w-full max-w-2xl mx-auto my-12" id="upload-section">
+        <section className="w-full max-w-2xl mx-auto mt-12 mb-6" id="upload-section">
             <div className="w-full bg-card-light dark:bg-card-dark border-2 border-dashed border-border-light dark:border-border-dark rounded-xl p-8 md:p-12 text-center transition-all hover:border-primary dark:hover:border-primary hover:bg-primary/5 dark:hover:bg-primary/10 cursor-pointer"
                 onClick={() => inputRef.current?.click()}
                 onDrop={handleDrop}
@@ -22,6 +23,9 @@ export default function UploadBox() {
                         </label></>)}
                     <input ref={inputRef} className="hidden" id="file-upload" type="file" onChange={handleFileChange} />
                 </div>
+            </div>
+            <div className="mt-8 flex justify-center items-center">
+                <ButtonPrimary label="Upload" className="max-w-32" />
             </div>
         </section>
     );
