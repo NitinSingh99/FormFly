@@ -1,9 +1,12 @@
-import { useFileUpload } from "../../../hooks/index";
+import { useSelectFile } from "../../../hooks/index";
 import ButtonPrimary from "../../shared/elements/ButtonPrimary";
+import { sendFile } from "../../../utils/httpRequest";
+import { handleUpload } from "../../../services/handleUpload";
 
 export default function UploadBox() {
 
-    const {file, inputRef, handleFileChange, handleDragOver, handleDrop} = useFileUpload();
+    const { file, inputRef, handleFileChange, handleDragOver, handleDrop } = useSelectFile();
+
 
     return (
         <section className="w-full max-w-2xl mx-auto mt-12 mb-6" id="upload-section">
@@ -21,11 +24,11 @@ export default function UploadBox() {
                         <label className="cursor-pointer bg-primary text-white font-semibold py-3 px-6 rounded-lg hover:bg-primary/90 transition-all shadow-soft">
                             Choose PDF
                         </label></>)}
-                    <input ref={inputRef} className="hidden" id="file-upload" type="file" onChange={handleFileChange} />
+                    <input ref={inputRef} className="hidden" id="FileInp" type="file" onChange={handleFileChange} />
                 </div>
             </div>
             <div className="mt-8 flex justify-center items-center">
-                <ButtonPrimary label="Upload" className="max-w-32" />
+                <ButtonPrimary label="Upload" className="max-w-32" id="uploadBtn" onClick={() => handleUpload(file!)} />
             </div>
         </section>
     );

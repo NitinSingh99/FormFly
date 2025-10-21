@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 
-export function useFileUpload(allowedType = "application/pdf") {
+export function useSelectFile(allowedType = "application/pdf") {
     const [file, setFile] = useState<File | null>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
