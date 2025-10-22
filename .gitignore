@@ -49,4 +49,4 @@ backend/.env
 *.bak
 *.orig
 
-/uploads/
+**/uploads/
