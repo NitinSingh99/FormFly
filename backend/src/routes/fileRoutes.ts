@@ -27,7 +27,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.post("/", upload.single("file"), (req: Request, res: Response) => {
-    // console.log('rxx'); return;
     if (!req.file) {
         return res.status(400).json({ success: false, message: "No file found" });
     }
