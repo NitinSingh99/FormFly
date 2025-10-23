@@ -11,19 +11,17 @@ export function useUploadFile() {
     const handleUpload = async (file: File) => {
         if (!file) return alert("Please select a file first!");
         setLoading(true);
-        const minLoaderTime = 500; // in milliseconds
+        const minLoaderTime = 500; 
         const start = Date.now();
         try {
             const response = await sendFile(file, API_ENDPTS.uploadFile);
             hideLoader(start, setLoading);
-            // setTimeout(() => {
             if (response?.success) {
                 setMessage(response.message || "File upload successful!");
             } else {
                 setError(true);
                 setMessage(response.message || "File upload failed");
             }
-            // }, 700);
         } catch (err) {
             console.log(err);
             hideLoader(start, setLoading);

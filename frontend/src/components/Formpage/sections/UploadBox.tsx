@@ -1,21 +1,16 @@
 import { useSelectFile } from "../../../hooks/index";
 import { useUploadFile } from "../../../hooks/index";
 import ButtonPrimary from "../../shared/elements/ButtonPrimary";
-import Loader from "../../shared/elements/Loader";
+// import Loader from "../../shared/elements/Loader";
+import { UploadBoxProps } from "../../../types/UploadBoxProps";
 
-export default function UploadBox() {
+export default function UploadBox({ handleUpload, message, error }: UploadBoxProps) {
 
     const { file, inputRef, handleFileChange, handleDragOver, handleDrop } = useSelectFile();
-    const { handleUpload, loading, message, error } = useUploadFile();
+    // const { message, error } = useUploadFile();
 
     return (
         <section className="w-full max-w-2xl mx-auto mt-12 mb-6" id="upload-section">
-            {loading && (
-                <div className="loader-overlay">
-                    <Loader />
-                </div>
-            )}
-
             <div className="w-full bg-card-light dark:bg-card-dark border-2 border-dashed border-border-light dark:border-border-dark rounded-xl p-8 md:p-12 text-center transition-all hover:border-primary dark:hover:border-primary hover:bg-primary/5 dark:hover:bg-primary/10 cursor-pointer"
                 onClick={() => inputRef.current?.click()}
                 onDrop={handleDrop}
@@ -42,9 +37,8 @@ export default function UploadBox() {
                     )}
                 </div>
                 <div className="mt-2 flex justify-center items-center">
-                    <ButtonPrimary label="Upload" className="max-w-32" id="uploadBtn" onClick={() => handleUpload(file!)} />
+                    <ButtonPrimary label="Upload" className="max-w-32" id="uploadBtn" onClick={() => file && handleUpload(file)} />
                 </div>
-
             </div>
         </section>
     );
