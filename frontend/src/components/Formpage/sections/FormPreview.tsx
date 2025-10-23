@@ -14,8 +14,8 @@ export default function FormPreview() {
                 <FormInput placeholder="Address" />
                 <DateInput placeholder="DOB" />
                 <ButtonPrimary label="Verify"/>
-                <FormDisclaimer></FormDisclaimer>
-                <ButtonSecondary label="Try another file"></ButtonSecondary>
+                <FormDisclaimer />
+                <ButtonSecondary label="Try another file" />
             </form>
         </section>
     );
