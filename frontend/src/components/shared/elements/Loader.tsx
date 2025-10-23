@@ -3,10 +3,8 @@ import "../../../assets/loader.css";
 
 const Loader: React.FC = () => {
   return (
-    <div className="three-body">
-      <div className="three-body__dot" />
-      <div className="three-body__dot" />
-      <div className="three-body__dot" />
+    <div className="loader">
+      <div className="justify-content-center jimu-primary-loading" />
     </div>
   );
 };
