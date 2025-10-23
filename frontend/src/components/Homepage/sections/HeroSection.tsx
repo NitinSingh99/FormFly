@@ -10,8 +10,8 @@ export default function HeroSection() {
                     backgroundImage:
                         `linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 100%), url(${heroBg})`
                 }}>
-                    <div className="flex flex-col gap-4 text-left max-w-2xl">
-                        <h1 className="text-white text-4xl md:text-5xl font-extrabold tracking-tight">Autofill forms from PDFs with AI</h1>
+                    <div className="flex flex-col gap-4 text-left max-w-3xl">
+                        <h1 className="text-white text-4xl md:text-5xl font-extrabold tracking-tight">Autofill forms from any document with AI</h1>
                         <p className="text-gray-200 text-base md:text-lg">
                             FormFly securely extracts data from your PDFs and automatically fills out online forms, saving you time and reducing errors.
                         </p>
