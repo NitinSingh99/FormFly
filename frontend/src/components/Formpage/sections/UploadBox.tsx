@@ -1,13 +1,11 @@
 import { useSelectFile } from "../../../hooks/index";
 import { useUploadFile } from "../../../hooks/index";
 import ButtonPrimary from "../../shared/elements/ButtonPrimary";
-// import Loader from "../../shared/elements/Loader";
 import { UploadBoxProps } from "../../../types/UploadBoxProps";
 
 export default function UploadBox({ handleUpload, message, error }: UploadBoxProps) {
 
     const { file, inputRef, handleFileChange, handleDragOver, handleDrop } = useSelectFile();
-    // const { message, error } = useUploadFile();
 
     return (
         <section className="w-full max-w-2xl mx-auto mt-12 mb-6" id="upload-section">
