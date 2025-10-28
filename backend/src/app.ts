@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors"; 
 import dotenv from "dotenv";
-import fileRoutes from "./routes/fileRoutes.js";
+import routes from "./routes/index.js";
 
 dotenv.config();
 
@@ -15,6 +15,6 @@ app.get("/", (req, res) => {
   res.send("Backend is running!");
 });
 
-app.use("/api/upload", fileRoutes);
+app.use("/api", routes);
 
 export default app;
