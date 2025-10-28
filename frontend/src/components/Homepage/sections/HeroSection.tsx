@@ -1,4 +1,4 @@
-import heroBg from '../../../assets/hero.png';
+import heroBg from '../../../assets/images/hero.png';
 import { useNavigate } from 'react-router-dom';
 
 export default function HeroSection() {
