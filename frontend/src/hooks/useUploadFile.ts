@@ -11,6 +11,7 @@ export function useUploadFile() {
     const handleUpload = async (file: File) => {
         if (!file) return alert("Please select a file first!");
         setLoading(true);
+        setError(false);
         const start = Date.now();
         try {
             const response = await sendFile(file, API_ENDPTS.uploadFile);
