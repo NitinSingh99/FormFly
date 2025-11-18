@@ -8,6 +8,6 @@ export const uploadFile = async (req: Request, res: Response) => {
 
     const fileBuffer = req.file.buffer;
     const text = await extractTextFromPdf(fileBuffer);
-    
-    return res.status(200).json({ status: true, message: "File uploaded successfully." });
+
+    return res.status(200).json({ success: true, message: "File uploaded successfully." });
 };
