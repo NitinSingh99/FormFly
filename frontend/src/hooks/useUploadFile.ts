@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { API_ENDPTS } from "../config/api";
-import { sendFile } from "../utils/httpRequest";
+import { uploadService } from "../services/uploadService";
 import { hideLoader } from "../utils/hideLoader";
 
 export function useUploadFile() {
@@ -15,7 +15,7 @@ export function useUploadFile() {
         setMessage("");
         const start = Date.now();
         try {
-            const response = await sendFile(file, API_ENDPTS.uploadFile);
+            const response = await uploadService.sendFile(file, API_ENDPTS.uploadFile);
             hideLoader(start, setLoading);
             if (response?.success) {
                 setMessage(response.message || "File upload successful!");
