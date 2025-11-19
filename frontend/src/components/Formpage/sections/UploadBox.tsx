@@ -35,7 +35,7 @@ export default function UploadBox({ handleUpload, message, error }: UploadBoxPro
                     )}
                 </div>
                 <div className="mt-2 flex justify-center items-center">
-                    <ButtonPrimary label="Upload" className="max-w-32" id="uploadBtn" onClick={() => file && handleUpload(file)} />
+                    <ButtonPrimary label="Upload" className="max-w-32" id="uploadBtn" onClick={() => handleUpload(file!)} />
                 </div>
             </div>
         </section>
