@@ -9,7 +9,7 @@ export function useUploadFile() {
     const [error, setError] = useState(false);
 
     const handleUpload = async (file: File) => {
-        if (!file) return alert("Please select a file first!");
+        if (!file) return alert("Please select a file!");
         setLoading(true);
         setError(false);
         setMessage("");
