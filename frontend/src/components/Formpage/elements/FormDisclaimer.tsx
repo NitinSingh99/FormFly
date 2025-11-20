@@ -6,6 +6,5 @@ export default function FormDisclaimer() {
             Your data is processed securely using AI — nothing is stored.
             </p>
         </div>
-
     );
 }
