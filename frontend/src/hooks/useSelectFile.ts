@@ -15,8 +15,8 @@ export function useSelectFile(allowedType = "application/pdf") {
         }
 
         const pageCount = await getPdfPageCount(selectedFile);
-        if (pageCount > 3) {
-            alert('Number of pages cannot be more than 3');
+        if (pageCount > 1) {
+            alert('Number of pages cannot be more than 1');
             return;
         }
 
@@ -33,8 +33,8 @@ export function useSelectFile(allowedType = "application/pdf") {
         }
 
         const pageCount = await getPdfPageCount(droppedFile);
-        if (pageCount > 3) {
-            alert('Number of pages cannot be more than 3');
+        if (pageCount > 1) {
+            alert('Number of pages cannot be more than 1');
             return;
         }
 
