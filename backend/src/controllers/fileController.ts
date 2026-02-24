@@ -5,7 +5,8 @@ import {
   convertPdfToImg,
   extractTextFromImage,
 } from "../services/pdfService.js";
-import { extractFields } from "../ai/extractFields.js";
+// import { extractFields } from "../ai/extractFields.js";/
+import { extractStructuredData } from "../services/geminiService.js";
 
 export const uploadFile = async (req: Request, res: Response) => {
   if (!req.file) {
@@ -14,23 +15,31 @@ export const uploadFile = async (req: Request, res: Response) => {
 
   const fileBuffer = req.file.buffer;
   const pdfType = await detectPdfType(fileBuffer);
-  console.log(pdfType);
+  // console.log(pdfType);
   let text = "";
   if (pdfType == "TEXT_BASED") {
     text = await extractTextFromPdf(fileBuffer);
-    console.log(text);
+    // console.log(text);
   } else if (pdfType == "IMAGE_BASED") {
     const imgPath = await convertPdfToImg(fileBuffer);
     console.log(imgPath);
     text = await extractTextFromImage(imgPath);
-    console.log(text);
+    // console.log(text);
   }
   const fieldsArr = ["Name", "Pan No"];
+  // console.log('Key');
+  // console.log(process.env.GEMINI_API_KEY);
 
-  const fields = await extractFields(text, fieldsArr);
-  console.log("XXXXXXXXXXXXXXXXXX");
-  console.log(fields);
-  console.log("XXXXXXXXXXXXXXXXXX");
+  // import { createGeminiService } from '../services/geminiService';
+
+// const geminiService = createGeminiService();
+const resss = await extractStructuredData(text);
+
+
+  // const fields = await extractStructuredData(text);
+  // console.log("XXXXXXXXXXXXXXXXXX");
+  // console.log(fields);
+  // console.log("XXXXXXXXXXXXXXXXXX");
   return res
     .status(200)
     .json({ success: true, message: "File uploaded successfully." });
