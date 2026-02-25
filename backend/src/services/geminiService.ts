@@ -26,7 +26,6 @@ Text: ${text}
 `;
   console.log("prompt: ", prompt);
 
-  // Get AI instance only when needed (after env is loaded)
   const aiInstance = getAI();
 
   const response = await aiInstance.models.generateContent({
