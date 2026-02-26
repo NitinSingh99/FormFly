@@ -1,4 +1,3 @@
-// src/services/geminiService.ts
 import { GoogleGenAI } from "@google/genai";
 
 let ai: GoogleGenAI | null = null;
@@ -19,12 +18,46 @@ const getAI = () => {
 };
 
 export const extractStructuredData = async (text: string) => {
-  const prompt = `
-You are a document data extraction engine. Extract structured JSON data from the following text. Return only valid JSON. Do not add explanation.
+  if (!text || text.trim().length === 0) {
+    return {};
+  }
 
-Text: ${text}
+  const prompt = `
+You are a high-precision information extraction engine.
+
+Your task is to extract structured data from the provided document text and return it as a SINGLE valid JSON object.
+
+---------------------------------------
+OUTPUT RULES (MANDATORY)
+---------------------------------------
+1. Return ONLY raw JSON.
+2. Do NOT include explanations, comments, markdown, or code fences.
+3. Do NOT include trailing commas.
+4. Do NOT invent or guess values.
+5. If a value is not explicitly present, set it to null.
+6. Preserve original wording exactly as it appears.
+7. If multiple values exist for the same field, return an array.
+8. If nothing meaningful can be extracted, return {}.
+
+---------------------------------------
+DATA TYPES
+---------------------------------------
+- Strings must be plain text.
+- Numbers must be numeric (no symbols).
+- Dates must be in ISO format: YYYY-MM-DD when possible, else null.
+- Phone numbers: digits only.
+- Emails: lowercase.
+
+---------------------------------------
+STRUCTURE
+---------------------------------------
+Return a flat JSON object.
+
+---------------------------------------
+DOCUMENT TEXT
+---------------------------------------
+${text}
 `;
-  console.log("prompt: ", prompt);
 
   const aiInstance = getAI();
 
@@ -33,12 +66,13 @@ Text: ${text}
     contents: prompt,
   });
 
-  //   console.log("Gemini res:", response);
-  const textContent = response.candidates?.[0]?.content?.parts?.[0]?.text;
+  const rawOutput = response.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
 
-  console.log("Extracted text:", textContent);
-
-  return textContent;
-
-  return response;
+  try {
+    console.log(rawOutput);
+    return JSON.parse(rawOutput);
+  } catch (err) {
+    console.error("Invalid JSON from AI:", rawOutput);
+    return {};
+  }
 };
