@@ -1,9 +1,10 @@
 import fs from "fs/promises";
 import path from "path";
+import sharp from "sharp";
 import { PDFParse } from "pdf-parse";
 import pdfPoppler from "pdf-poppler";
 import type { PdfType } from "../types/PdfType.js";
-import { createWorker } from "tesseract.js";
+import { createWorker, PSM } from "tesseract.js";
 
 const looksLikeRealText = (text: string): boolean => {
   const cleaned = text.replace(/--\s*\d+\s*of\s*\d+\s*--/gi, "").trim();
@@ -41,40 +42,75 @@ export const extractTextFromPdf = async (fileBuffer: Buffer) => {
   }
 };
 
-export const convertPdfToImg = async (fileBuffer: Buffer): Promise<string> => {
+/**
+ * Convert single-page PDF buffer to image buffer
+ */
+export const convertPdfToImageBuffer = async (
+  fileBuffer: Buffer
+): Promise<Buffer> => {
   const tempDir = path.join(process.cwd(), "temp");
-  const prefix = `page-${Date.now()}`;
-  const pdfPath = path.join(tempDir, `input-${Date.now()}.pdf`);
+  await fs.mkdir(tempDir, { recursive: true });
+
+  const timestamp = Date.now();
+  const pdfPath = path.join(tempDir, `input-${timestamp}.pdf`);
+  const prefix = `page-${timestamp}`;
 
   await fs.writeFile(pdfPath, fileBuffer);
 
-  const options = {
+  await pdfPoppler.convert(pdfPath, {
     format: "png",
     out_dir: tempDir,
     out_prefix: prefix,
-    page: null,
-  };
+    page: 1,
+  });
 
-  await pdfPoppler.convert(pdfPath, options);
+  const imagePath = path.join(tempDir, `${prefix}-1.png`);
 
-  const files = await fs.readdir(tempDir);
-
-  const image = files.find((f) => f.startsWith(prefix));
-
-  if (!image) {
+  try {
+    await fs.access(imagePath);
+  } catch {
     throw new Error("PDF to image conversion failed");
   }
 
-  return path.join(tempDir, image);
+  const imageBuffer = await fs.readFile(imagePath);
+
+  await fs.unlink(pdfPath);
+  await fs.unlink(imagePath);
+
+  return imageBuffer;
 };
 
-export const extractTextFromImage = async (
-  imagePath: string,
+/**
+ * OCR from image buffer (with preprocessing)
+ */
+export const extractTextFromImageBuffer = async (
+  imageBuffer: Buffer
 ): Promise<string> => {
-  const worker = await createWorker("eng", undefined);
+  const processedBuffer = await sharp(imageBuffer)
+    .grayscale()
+    .normalize()
+    .sharpen()
+    .resize({ width: 1500 })
+    .toBuffer();
 
-  const { data } = await worker.recognize(imagePath);
+  const worker = await createWorker("eng");
+
+  await worker.setParameters({
+    tessedit_char_whitelist: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789:/- ",
+    preserve_interword_spaces: "1",
+    tessedit_pageseg_mode: PSM.SINGLE_BLOCK,
+  });
+
+  const { data } = await worker.recognize(processedBuffer);
+
   await worker.terminate();
 
   return data.text?.trim() ?? "";
+};
+
+export const extractTextFromOCR = async (
+  fileBuffer: Buffer
+): Promise<string> => {
+  const imageBuffer = await convertPdfToImageBuffer(fileBuffer);
+  return await extractTextFromImageBuffer(imageBuffer);
 };

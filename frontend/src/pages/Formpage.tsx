@@ -6,7 +6,7 @@ import LoadingPage from "./LoadingPage";
 import { useUploadFile } from "../hooks";
 
 export default function FormPage() {
-    const { handleUpload, loading, message, error } = useUploadFile();
+    const { handleUpload, loading, message, error, extractedData} = useUploadFile();
     return (
         <>
             {
@@ -20,7 +20,7 @@ export default function FormPage() {
                         <AnimatedPage>
                             <IntroSection />
                             <UploadBox handleUpload={handleUpload} message={message} error={error} />
-                            <FormPreview />
+                            <FormPreview extractedData={extractedData}/>
                         </AnimatedPage>
                     )
             }
