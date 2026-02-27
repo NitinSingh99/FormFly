@@ -32,21 +32,55 @@ export const detectPdfType = async (fileBuffer: Buffer): Promise<PdfType> => {
   return "IMAGE_BASED";
 };
 
-export const extractTextFromPdf = async (fileBuffer: Buffer) => {
-  const parser = new PDFParse(new Uint8Array(fileBuffer));
-  const result = await parser.getText();
-  if (result.text.length > 10) {
-    return result.text;
-  } else {
-    return "Image";
+/**
+ * Extracts selectable text from a text-based PDF.
+ *
+ * This function parses the provided PDF buffer and returns the
+ * embedded textual content without performing OCR.
+ *
+ * Intended for PDFs that are digitally generated and contain
+ * machine-readable text.
+ *
+ * @param fileBuffer - The raw PDF file as a Buffer.
+ * @returns A Promise resolving to extracted plain text.
+ *
+ * @throws Error if parsing fails or no text is found.
+ */
+export const extractTextFromPdf = async (
+  fileBuffer: Buffer,
+): Promise<string> => {
+  try {
+    const parser = new PDFParse(new Uint8Array(fileBuffer));
+    const result = await parser.getText();
+
+    if (!result?.text || result.text.trim().length === 0) {
+      throw new Error("No selectable text found in PDF");
+    }
+
+    return result.text.trim();
+  } catch (error) {
+    throw new Error(
+      `Failed to extract text from text-based PDF: ${
+        error instanceof Error ? error.message : "Unknown error"
+      }`,
+    );
   }
 };
 
 /**
- * Convert single-page PDF buffer to image buffer
+ * Converts a single-page PDF buffer into a PNG image buffer.
+ *
+ * The function temporarily writes the PDF to disk, converts the first page
+ * to a PNG image using Poppler, reads the generated image into memory,
+ * and removes temporary files.
+ *
+ * @param fileBuffer - The raw PDF file as a Buffer.
+ * @returns A Promise resolving to the generated PNG image as a Buffer.
+ *
+ * @throws Error if the PDF-to-image conversion fails.
  */
 export const convertPdfToImageBuffer = async (
-  fileBuffer: Buffer
+  fileBuffer: Buffer,
 ): Promise<Buffer> => {
   const tempDir = path.join(process.cwd(), "temp");
   await fs.mkdir(tempDir, { recursive: true });
@@ -81,10 +115,10 @@ export const convertPdfToImageBuffer = async (
 };
 
 /**
- * OCR from image buffer (with preprocessing)
+ * OCR from image buffer (with preprocessing with sharp)
  */
 export const extractTextFromImageBuffer = async (
-  imageBuffer: Buffer
+  imageBuffer: Buffer,
 ): Promise<string> => {
   const processedBuffer = await sharp(imageBuffer)
     .grayscale()
@@ -109,7 +143,7 @@ export const extractTextFromImageBuffer = async (
 };
 
 export const extractTextFromOCR = async (
-  fileBuffer: Buffer
+  fileBuffer: Buffer,
 ): Promise<string> => {
   const imageBuffer = await convertPdfToImageBuffer(fileBuffer);
   return await extractTextFromImageBuffer(imageBuffer);
